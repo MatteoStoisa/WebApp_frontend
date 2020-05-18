@@ -1,0 +1,13 @@
+mat-icon {
+    margin: 10px;
+    margin-right: 25px;
+}
+
+mat-sidenav-container { 
+    margin: 20px; 
+    height: 100%; 
+}
+
+mat-sidenav {
+    width: 20%;
+}
