@@ -11,3 +11,7 @@ mat-sidenav-container {
 mat-sidenav {
     width: 20%;
 }
+
+table {
+    width: 100%;
+}

@@ -9,10 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,9 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatSidenavModule,
     MatTabsModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

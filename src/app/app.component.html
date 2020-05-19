@@ -1,10 +1,10 @@
 <mat-toolbar>  
-    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-    <span>aaa</span>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="sidenav.toggle()">home</mat-icon>
+    <span>The Student Teams App</span>
 </mat-toolbar>
-<mat-toolbar>bbb</mat-toolbar>
+<mat-toolbar>building GUI</mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav mode="side" opened>
+    <mat-sidenav #sidenav mode="side" opened>
         <div class="container">
             <mat-nav-list>
                 sidenav
@@ -20,17 +20,49 @@
             </mat-tab>
             <mat-tab label="Students">
                 <div class="container">
-                    bbb
+                    <table mat-table [dataSource]="students" class="mat-elevation-z8">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                    [aria-label]="checkboxLabel()"> 
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)"
+                                    [aria-label]="checkboxLabel(row)"> 
+                                    <mat-checkbox>
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> ID </th>
+                            <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+                            <td mat-cell *matCellDef="let student"> {{student.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="firstName">
+                            <th mat-header-cell *matHeaderCellDef> First Name </th>
+                            <td mat-cell *matCellDef="let student"> {{student.firstName}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsStudents"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsStudents;"></tr> 
+                    </table>
                 </div>
             </mat-tab>
             <mat-tab label="Teachers">
                 <div class="container">
-                    bbb
+                    ccc
                 </div>
             </mat-tab>
             <mat-tab label="Teams">
                 <div class="container">
-                    bbb
+                    ddd
                 </div>
             </mat-tab>
         </mat-tab-group>
