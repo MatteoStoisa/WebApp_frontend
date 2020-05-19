@@ -1,5 +1,5 @@
 <mat-toolbar>  
-    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="sidenav.toggle()">view_list</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="sidenav.toggle()">home</mat-icon>
     <span>The Student Teams App</span>
 </mat-toolbar>
 <mat-toolbar>building GUI</mat-toolbar>
@@ -7,20 +7,37 @@
     <mat-sidenav #sidenav mode="side" opened>
         <div class="container">
             <mat-nav-list>
-                SIDENAV
+                <mat-list-item role="listitem">Course 1</mat-list-item>
+                <mat-list-item role="listitem">Course 2</mat-list-item>
+                <mat-list-item role="listitem">Course 3</mat-list-item>
             </mat-nav-list>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-tab-group>
-            <mat-tab label="Courses">
-                <div class="container">
-                    COURSES
-                </div>
-            </mat-tab>
             <mat-tab label="Students">
                 <div class="container">
-                    <table mat-table [dataSource]="students" class="mat-elevation-z8">
+                    <form class="example-form">
+                        <label style="margin-right: 3%;">Insert Student Into Course:</label>
+                        <mat-form-field class="example-full-width">
+                          <input type="text"
+                                 placeholder="search"
+                                 aria-label="Number"
+                                 matInput
+                                 [formControl]="myControl"
+                                 [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                              {{option.name+" "+option.firstName+" ("+option.id+")"}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    </form>
+                    <ng-container matColumnDef="delete">
+                        <label style="margin-right: 2%;">Remove Selected Students From Course:</label>
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteSelected()">delete</mat-icon>
+                    </ng-container>
+                    <table mat-table [dataSource]="students" class="mat-elevation-z8" style="margin-top: 3%;">
                         <ng-container matColumnDef="select">
                             <th mat-header-cell *matHeaderCellDef>
                                 <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -36,12 +53,6 @@
                                     [aria-label]="checkboxLabel(row)"> 
                                 </mat-checkbox>
                             </td> 
-                        </ng-container>
-                        <ng-container matColumnDef="delete">
-                            <th mat-header-cell *matHeaderCellDef>
-                                <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteSelected()">delete</mat-icon>
-                            </th>
-                            <td mat-cell *matCellDef="let row"></td> 
                         </ng-container>
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -60,14 +71,14 @@
                     </table>
                 </div>
             </mat-tab>
-            <mat-tab label="Teachers">
-                <div class="container">
-                    TEACHERS
-                </div>
-            </mat-tab>
             <mat-tab label="Teams">
                 <div class="container">
                     TEAMS
+                </div>
+            </mat-tab>
+            <mat-tab label="Teachers">
+                <div class="container">
+                    TEACHERS
                 </div>
             </mat-tab>
         </mat-tab-group>
