@@ -3,10 +3,10 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-
+import {Sort} from '@angular/material/sort';
+import { FormControl } from '@angular/forms';
 
 import { Student } from './models/student.model'
-import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -34,6 +34,7 @@ export class AppComponent {
     selection = new SelectionModel<Student>(true, []);
     filteredOptions: Observable<Student[]>;
     selectedStudent: Student = null;
+    sortedData: Student[];
 
     ngOnInit() {
       this.filteredOptions = this.myControl.valueChanges
@@ -41,6 +42,10 @@ export class AppComponent {
           startWith(''),
           map(value => this._filter(value))
         );
+    }
+
+    constructor() {
+      this.sortedData = this.students.slice();
     }
 
     masterToggle() {
@@ -114,5 +119,29 @@ export class AppComponent {
         this.selectedStudent = null;
         this.dataSource = new MatTableDataSource<Student>(this.students);
       }
+    }
+
+    sortData(sort: Sort) {
+      const data = this.students.slice();
+      if (!sort.active || sort.direction === '') {
+        this.sortedData = data;
+        this.dataSource = new MatTableDataSource<Student>(this.sortedData);
+        return;
+      }
+  
+      this.sortedData = data.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        switch (sort.active) {
+          case 'id': return this.compareStudents(a.id, b.id, isAsc);
+          case 'name': return this.compareStudents(a.name, b.name, isAsc);
+          case 'firstName': return this.compareStudents(a.firstName, b.firstName, isAsc);
+          default: return 0;
+        }
+      });
+      this.dataSource = new MatTableDataSource<Student>(this.sortedData);
+    }
+
+    compareStudents(a: Student | string, b: Student | string, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 }
