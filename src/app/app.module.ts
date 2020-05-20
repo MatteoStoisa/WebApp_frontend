@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatAutocompleteModule} from '@angular/material/autocomplete'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatInputModule } from '@angular/material/input'
     MatAutocompleteModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

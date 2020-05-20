@@ -8,4 +8,5 @@ export class Student {
         this.name = n;
         this.firstName = fn;
     }
+    
 }

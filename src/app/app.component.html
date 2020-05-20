@@ -1,8 +1,10 @@
-<mat-toolbar>  
-    <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="sidenav.toggle()">home</mat-icon>
-    <span>The Student Teams App</span>
+<mat-toolbar color="primary">  
+    <button mat-mini-fab color="secondary" aria-label="Delete button" (click)="sidenav.toggle()">
+        <mat-icon aria-hidden="false" aria-label="Home icon">list</mat-icon>
+    </button>
+    <span style="margin-left: 2%;">Student Teams!</span>
 </mat-toolbar>
-<mat-toolbar>building GUI</mat-toolbar>
+<mat-toolbar>Applicazioni Internet</mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened>
         <div class="container">
@@ -17,25 +19,31 @@
         <mat-tab-group>
             <mat-tab label="Students">
                 <div class="container">
-                    <form class="example-form">
+                    <form class="example-form" style="margin-left: 2%;">
                         <label style="margin-right: 3%;">Insert Student Into Course:</label>
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width" style="padding-right: 2%;">
                           <input type="text"
-                                 placeholder="search"
+                                 placeholder="search and select"
                                  aria-label="Number"
                                  matInput
                                  [formControl]="myControl"
-                                 [matAutocomplete]="auto">
+                                 [matAutocomplete]="auto"
+                                 id="inputAddStudent">
                           <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="optionSelected(option)">
                               {{option.name+" "+option.firstName+" ("+option.id+")"}}
                             </mat-option>
                           </mat-autocomplete>
                         </mat-form-field>
+                        <button mat-mini-fab color="primary" aria-label="Add button" (click)="addOption()" onclick="document.getElementById('inputAddStudent').value = ''">
+                            <mat-icon aria-hidden="false" aria-label="Add icon">add</mat-icon>
+                        </button>
                     </form>
                     <ng-container matColumnDef="delete">
-                        <label style="margin-right: 2%;">Remove Selected Students From Course:</label>
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" (click)="deleteSelected()">delete</mat-icon>
+                        <label style="margin-right: 2%; margin-left: 2%;">Remove Selected Students From Course:</label>
+                        <button mat-mini-fab color="primary" aria-label="Delete button" (click)="deleteSelected()">
+                            <mat-icon aria-hidden="false" aria-label="Delete icon">delete</mat-icon>
+                        </button>
                     </ng-container>
                     <table mat-table [dataSource]="students" class="mat-elevation-z8" style="margin-top: 3%;">
                         <ng-container matColumnDef="select">
@@ -73,12 +81,12 @@
             </mat-tab>
             <mat-tab label="Teams">
                 <div class="container">
-                    TEAMS
+                    TEAMS (coming soon)
                 </div>
             </mat-tab>
             <mat-tab label="Teachers">
                 <div class="container">
-                    TEACHERS
+                    TEACHERS (coming soon)
                 </div>
             </mat-tab>
         </mat-tab-group>

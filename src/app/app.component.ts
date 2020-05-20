@@ -62,6 +62,7 @@ export class AppComponent {
         }
         this.students = unselected;
         this.selection.clear();
+        this.dataSource = new MatTableDataSource<Student>(this.students);
       }
     }
 
@@ -90,5 +91,32 @@ export class AppComponent {
       }
       return filteredStudentDB;
     }
+    
+    selectedStudent: Student = null;
+    optionSelected(student: Student) {
+        this.selectedStudent = student;
+    }
 
+    compareStudents(student1: Student, student2: Student) {
+        if(student1.id > student2.id)
+            return 1;
+        if(student1.id < student2.id)
+            return -1;
+        return 0;
+    }
+    
+    addOption() {
+      if(this.selectedStudent != null) {
+        for(let student of this.students) {
+          if(student.id === this.selectedStudent.id) {
+            return;
+          }
+        }
+        this.students.push(this.selectedStudent);
+        this.selectedStudent = null;
+        this.students = this.students.sort(this.compareStudents);
+        this.dataSource = new MatTableDataSource<Student>(this.students);
+        this.students = this.students.slice();
+      }
+    }
 }
