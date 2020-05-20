@@ -45,7 +45,7 @@
                             <mat-icon aria-hidden="false" aria-label="Delete icon">delete</mat-icon>
                         </button>
                     </ng-container>
-                    <table mat-table [dataSource]="students" class="mat-elevation-z8" style="margin-top: 3%;">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 3%;">
                         <ng-container matColumnDef="select">
                             <th mat-header-cell *matHeaderCellDef>
                                 <mat-checkbox (change)="$event ? masterToggle() : null"
