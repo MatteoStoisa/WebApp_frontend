@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {Sort} from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import {MatPaginator} from '@angular/material/paginator';
 
 import { Student } from './models/student.model'
 
@@ -36,12 +37,16 @@ export class AppComponent {
     selectedStudent: Student = null;
     sortedData: Student[];
 
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
     ngOnInit() {
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
           startWith(''),
           map(value => this._filter(value))
         );
+
+        this.dataSource.paginator = this.paginator;
     }
 
     constructor() {
