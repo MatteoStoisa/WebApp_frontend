@@ -3,7 +3,6 @@ import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { MatFormFieldModule, MatFormFieldControl } from '@angular/material/form-field';
 
 
 import { Student } from './models/student.model'
@@ -15,23 +14,34 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'ai20-lab04';
-    myControl = new FormControl();
+ 
     studentsDB: Student[] = [
-        new Student("123456", "studentLastName1", "studentFirstName1"),
-        new Student("234567", "studentLastName2", "studentFirstName2"),
-        new Student("345678", "studentLastName3", "studentFirstName3"),
-        new Student("456789", "studentLastName4", "studentFirstName4"),
-        new Student("567890", "studentLastName5", "studentFirstName5"),
+        new Student("123456", "Storti", "Matteo"),
+        new Student("234567", "Poretti", "Matilde"),
+        new Student("345678", "Baglio", "Giacomo"),
+        new Student("456789", "Rossi", "Cosimo"),
+        new Student("567890", "Bianchi", "Alberto"),
     ];
     students: Student[] = [
-        new Student("123456", "studentLastName1", "studentFirstName1"),
-        new Student("234567", "studentLastName2", "studentFirstName2"),
+        new Student("456789", "Rossi", "Cosimo"),
+        new Student("567890", "Bianchi", "Alberto"),
     ];
-    displayedColumnsStudents: string[] = ["select", "id", "name", "firstName"];
 
+    title = 'ai20-lab04';
+    myControl = new FormControl();
+    displayedColumnsStudents: string[] = ["select", "id", "name", "firstName"];
     dataSource = new MatTableDataSource<Student>(this.students);
     selection = new SelectionModel<Student>(true, []);
+    filteredOptions: Observable<Student[]>;
+    selectedStudent: Student = null;
+
+    ngOnInit() {
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
+    }
 
     masterToggle() {
         this.isAllSelected() ?
@@ -67,17 +77,9 @@ export class AppComponent {
     }
 
     displayFn(student: Student): string {
-      return student.name+" "+student.firstName+" ("+student.id+")";
-    }
-
-    filteredOptions: Observable<Student[]>;
-
-    ngOnInit() {
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filter(value))
-        );
+      if( student != null)
+        return student.name+" "+student.firstName+" ("+student.id+")";
+      return "";
     }
 
     private _filter(value: string): Student[] {
@@ -92,7 +94,6 @@ export class AppComponent {
       return filteredStudentDB;
     }
     
-    selectedStudent: Student = null;
     optionSelected(student: Student) {
         this.selectedStudent = student;
     }
