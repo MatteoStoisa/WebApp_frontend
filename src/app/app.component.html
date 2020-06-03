@@ -9,13 +9,15 @@
     <mat-sidenav #sidenav mode="side" opened>
         <div class="container">
             <mat-nav-list>
-                <mat-list-item role="listitem">Course 1</mat-list-item>
-                <mat-list-item role="listitem">Course 2</mat-list-item>
-                <mat-list-item role="listitem">Course 3</mat-list-item>
+                <mat-list-item role="listitem">Applicazioni Internet</mat-list-item>
+                <mat-list-item role="listitem">Data Spaces</mat-list-item>
+                <mat-list-item role="listitem">Ingegneria del Software</mat-list-item>
+                <mat-list-item role="listitem">Programmazione di Sistema</mat-list-item>
             </mat-nav-list>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <app-students-cont></app-students-cont>
+        <router-outlet></router-outlet>
+        
     </mat-sidenav-content>
   </mat-sidenav-container>
