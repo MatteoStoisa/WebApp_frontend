@@ -17,11 +17,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import {MatSortModule} from '@angular/material/sort';
-import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { StudentsComponent } from './teacher/students.component'
 
 @NgModule({
   declarations: [
     AppComponent,
+    StudentsComponent,
   ],
   imports: [
     BrowserModule,
