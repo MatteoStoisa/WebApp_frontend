@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
@@ -16,18 +16,8 @@ import { Student } from '../models/student.model'
 })
 export class StudentsComponent implements OnInit {
 
-  studentsDB: Student[] = [
-    new Student("123456", "Storti", "Matteo"),
-    new Student("234567", "Poretti", "Matilde"),
-    new Student("345678", "Baglio", "Giacomo"),
-    new Student("456789", "Rossi", "Cosimo"),
-    new Student("567890", "Bianchi", "Alberto"),
-  ];
-  students: Student[] = [
-      new Student("456789", "Rossi", "Cosimo"),
-      new Student("567890", "Bianchi", "Alberto"),
-  ];
-
+    @Input() studentsDB: Student[] = [];
+    @Input() students: Student[] = [];
     myControl = new FormControl();
     displayedColumnsStudents: string[] = ["select", "id", "name", "firstName"];
     dataSource = new MatTableDataSource<Student>(this.students);

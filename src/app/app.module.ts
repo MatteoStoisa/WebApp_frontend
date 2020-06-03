@@ -18,12 +18,14 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { StudentsComponent } from './teacher/students.component'
+import { StudentsComponent } from './teacher/students.component';
+import { StudentsContComponent } from './teacher/students-cont.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentsComponent,
+    StudentsContComponent,
   ],
   imports: [
     BrowserModule,
