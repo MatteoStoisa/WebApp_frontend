@@ -8,8 +8,9 @@ import { PageNotFoundComponent } from './teacher/PageNotFoundComponent'
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'teacher/course/applicationi-internet/students', component: StudentsContComponent },
-  { path: 'teacher/course/applicationi-internet/vms', component: VmsContComponent },
+  { path: 'teacher/course/applicazioni-internet/students', component: StudentsContComponent },
+  { path: 'teacher/course/applicazioni-internet/vms', component: VmsContComponent },
+  { path: '', redirectTo: "/home", pathMatch: "full" },
   { path: '**', component: PageNotFoundComponent}
 ];
 

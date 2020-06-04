@@ -12,5 +12,11 @@ export class AppComponent {
     ngOnInit() { }
 
     constructor() { }
+
+    navLinks = [
+        {label: 'Students', path: 'teacher/course/applicazioni-internet/students'}, 
+        {label: "VMs", path: 'teacher/course/applicazioni-internet/vms'}
+    ];
+    activeLink = this.navLinks[0];
     
 }

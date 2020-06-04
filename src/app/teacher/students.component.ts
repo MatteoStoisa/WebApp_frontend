@@ -34,6 +34,8 @@ export class StudentsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    //this.dataSource.sort = this.sortData;
+
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),

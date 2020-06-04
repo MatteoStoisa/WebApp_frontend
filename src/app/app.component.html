@@ -2,14 +2,16 @@
     <button mat-mini-fab color="secondary" aria-label="Delete button" (click)="sidenav.toggle()">
         <mat-icon aria-hidden="false" aria-label="Home icon">list</mat-icon>
     </button>
-    <span style="margin-left: 2%;">Student Teams!</span>
+    <span style="margin-left: 2%;">
+        <button mat-raised-button routerLink="/home">VirtualLabs</button>
+    </span>
 </mat-toolbar>
 <mat-toolbar>Applicazioni Internet</mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened>
         <div class="container">
             <mat-nav-list>
-                <mat-list-item role="listitem">Applicazioni Internet</mat-list-item>
+                <mat-list-item role="listitem" routerLink="teacher/course/applicazioni-internet/students">Applicazioni Internet</mat-list-item>
                 <mat-list-item role="listitem">Data Spaces</mat-list-item>
                 <mat-list-item role="listitem">Ingegneria del Software</mat-list-item>
                 <mat-list-item role="listitem">Programmazione di Sistema</mat-list-item>
@@ -17,6 +19,15 @@
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link
+               *ngFor="let link of navLinks"
+               [routerLink]="link.path"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+                {{link.label}}
+            </a>
+        </nav>
         <router-outlet></router-outlet>
         
     </mat-sidenav-content>
