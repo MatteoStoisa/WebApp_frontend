@@ -15,8 +15,7 @@ export class StudentsContComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() { }
 
   @Output() studentsDB: Student[] = [
     new Student("123456", "Storti", "Matteo"),

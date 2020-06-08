@@ -16,8 +16,11 @@ import { Student } from '../models/student.model'
 })
 export class StudentsComponent implements OnInit {
 
-    @Input() studentsDB: Student[];
-    private students: Student[];
+    studentsDB: Student[];
+    @Input() set _studentsDB( aaa: Student[] ) {
+      this.studentsDB = aaa;
+    }
+    students: Student[];
     @Input() set _students( aaa: Student[] ) {
       this.students = aaa;
       this.dataSource = new MatTableDataSource<Student>(aaa);
