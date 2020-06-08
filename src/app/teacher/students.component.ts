@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter, Output } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs';
@@ -16,8 +16,15 @@ import { Student } from '../models/student.model'
 })
 export class StudentsComponent implements OnInit {
 
-    @Input() studentsDB: Student[] = [];
-    @Input() students: Student[] = [];
+    @Input() studentsDB: Student[];
+    private students: Student[];
+    @Input() set _students( aaa: Student[] ) {
+      this.students = aaa;
+      this.dataSource = new MatTableDataSource<Student>(aaa);
+    }
+    @Output() deleteStudentsEmitter = new EventEmitter<Student[]>();
+    @Output() addStudentEmitter = new EventEmitter<Student>();
+
     myControl = new FormControl();
     displayedColumnsStudents: string[] = ["select", "id", "name", "firstName"];
     dataSource = new MatTableDataSource<Student>(this.students);
@@ -30,19 +37,17 @@ export class StudentsComponent implements OnInit {
 
 
   constructor() {
-    this.sortedData = this.students.slice();
+    //this.sortedData = this.students.slice();
    }
 
   ngOnInit(): void {
-    //this.dataSource.sort = this.sortData;
+    this.dataSource.paginator = this.paginator;
 
     this.filteredOptions = this.myControl.valueChanges
     .pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-
-    this.dataSource.paginator = this.paginator;
   }
 
   masterToggle() {
@@ -66,16 +71,11 @@ export class StudentsComponent implements OnInit {
 
   deleteSelected() {
     if(this.selection.selected.length != 0) {
-      let unselected: Student[] = [];
-      for(let student of this.students) {
-        if(!this.selection.isSelected(student)) {
-          unselected.push(student);
-        }
-      }
-      this.students = unselected;
+      this.deleteStudentsEmitter.emit(this.selection.selected);
       this.selection.clear();
-      this.dataSource = new MatTableDataSource<Student>(this.students);
     }
+    this.dataSource = new MatTableDataSource<Student>(this.students);
+    this.dataSource.paginator = this.paginator;
   }
 
   displayFn(student: Student): string {
@@ -85,7 +85,7 @@ export class StudentsComponent implements OnInit {
   }
 
   private _filter(value: string): Student[] {
-    const filterValue: string = value.toLowerCase();
+    const filterValue: string = value.toString().toLowerCase();
     let filteredStudentDB: Student[] = [];
     for(let student of this.studentsDB) {
       if(student.id.toLowerCase().includes(filterValue) || 
@@ -107,14 +107,11 @@ export class StudentsComponent implements OnInit {
         map(value => this._filter(value))
       );
     if(this.selectedStudent != null) {
-      for(let student of this.students) {
-        if(student.id === this.selectedStudent.id) {
-          return;
-        }
-      }
-      this.students.push(this.selectedStudent);
+      this.addStudentEmitter.emit(this.selectedStudent);
       this.selectedStudent = null;
       this.dataSource = new MatTableDataSource<Student>(this.students);
+      this.dataSource.paginator = this.paginator;
+      //TODO: controllare sta porcata
     }
   }
 
