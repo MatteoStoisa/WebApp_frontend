@@ -17,13 +17,15 @@ import { Student } from '../models/student.model'
 export class StudentsComponent implements OnInit {
 
     studentsDB: Student[];
-    @Input() set _studentsDB( aaa: Student[] ) {
-      this.studentsDB = aaa;
+    @Input() set _studentsDB( studentsDBcont: Student[] ) {
+      console.log("updating _studentsDB")
+      this.studentsDB = studentsDBcont;
     }
     students: Student[];
-    @Input() set _students( aaa: Student[] ) {
-      this.students = aaa;
-      this.dataSource = new MatTableDataSource<Student>(aaa);
+    @Input() set _students( studentsCont: Student[] ) {
+      console.log("updating _students")
+      this.students = studentsCont;
+      this.dataSource = new MatTableDataSource<Student>(studentsCont);
     }
     @Output() deleteStudentsEmitter = new EventEmitter<Student[]>();
     @Output() addStudentEmitter = new EventEmitter<Student>();
@@ -91,9 +93,9 @@ export class StudentsComponent implements OnInit {
     const filterValue: string = value.toString().toLowerCase();
     let filteredStudentDB: Student[] = [];
     for(let student of this.studentsDB) {
-      if(student.id.toLowerCase().includes(filterValue) || 
-        student.name.toLowerCase().includes(filterValue) ||
-        student.firstName.toLowerCase().includes(filterValue))
+      if(student.id.toString().toLowerCase().includes(filterValue) || 
+        student.name.toString().toLowerCase().includes(filterValue) ||
+        student.firstName.toString().toLowerCase().includes(filterValue))
           filteredStudentDB.push(student);
     }
     return filteredStudentDB;
@@ -114,7 +116,6 @@ export class StudentsComponent implements OnInit {
       this.selectedStudent = null;
       this.dataSource = new MatTableDataSource<Student>(this.students);
       this.dataSource.paginator = this.paginator;
-      //TODO: controllare sta porcata
     }
   }
 

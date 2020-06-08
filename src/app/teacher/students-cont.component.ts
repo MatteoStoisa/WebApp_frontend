@@ -2,6 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { Student } from '../models/student.model'
 import { StudentsComponent } from './students.component';
+import { StudentService  } from '../services/student.service'
+import { Subscription, concat } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-students-cont',
@@ -10,35 +13,36 @@ import { StudentsComponent } from './students.component';
 })
 export class StudentsContComponent implements OnInit {
 
-
-  constructor() { }
-
-  ngOnInit(): void { }
-
-  ngOnDestroy() { }
-
-  @Output() studentsDB: Student[] = [
-    new Student("123456", "Storti", "Matteo"),
-    new Student("234567", "Poretti", "Marta"),
-    new Student("345678", "Baglio", "Giacomo"),
-    new Student("456789", "Rossi", "Cosimo"),
-    new Student("567890", "Bianchi", "Alberto"),
-    new Student("678901", "Verdi", "Marco"),
-  ];
+  constructor(private studentService: StudentService) { }
   
-  @Output() students: Student[] = [
-      new Student("456789", "Rossi", "Cosimo"),
-      new Student("567890", "Bianchi", "Alberto"),
-  ];
+  students: Student[] = [];
+  studentsDB: Student[] = [];
+  studentsSub: Subscription;
+  updateSub: Subscription;
+
+  ngOnInit(): void { 
+    this.studentsSub = this.updateStudentList().subscribe();
+    this.studentService.getStudents(0).subscribe(
+      (response) => {
+        this.studentsDB = response;
+      }
+    )
+  }
+
+  ngOnDestroy() { 
+    if(this.studentsSub)
+      this.studentsSub.unsubscribe();
+  }
 
   performDeleteStudents(toDelete: Student[]) {
-    let unselected: Student[] = [];
-      for(let student of this.students) {
-        if(!toDelete.includes(student)) {
-          unselected.push(student);
-        }
+      for(let toDel of toDelete) {
+        //TODO: may not work with multiple requests!
+        if(this.updateSub)
+          this.updateSub.unsubscribe();
+        this.updateSub = concat(this.studentService.updateStudent(toDel,0), this.updateStudentList()).subscribe(
+          (event) => {console.log("updating students observable", event)}
+        );
       }
-      this.students = unselected;
   }
 
   performAddStudent(toAdd: Student) {
@@ -47,7 +51,26 @@ export class StudentsContComponent implements OnInit {
         return;
       }
     }
-    this.students.push(toAdd);
+    
+    if(this.updateSub)
+      this.updateSub.unsubscribe();
+    this.updateSub = concat(this.studentService.updateStudent(toAdd,1), this.updateStudentList()).subscribe(
+      (event) => {console.log("updating students observable", event)}
+    );
+  }
+
+  private updateStudentList() {
+    return this.studentService.getStudents(1).pipe(
+      tap(
+        (student: Student[]) => {
+          this.students = [];
+          for (let stud of student) {
+            this.students.push(stud);
+          }
+          console.log('updated value', this.students);
+        }
+      )
+    )
   }
   
 }
