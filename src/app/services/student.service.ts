@@ -19,15 +19,6 @@ export class StudentService {
     return this.http.get<Student[]>(this.API_PATH + '/students');
   }
 
-public updateStudentCourse(student: Student[], courseId: number) {
-    for(let stud of student) {
-      console.log(stud.id+stud.name+stud.firstName+stud.courseId+stud.groupId);
-      stud.groupId = courseId.toString();
-    }
-    return this.http.put<Student>(this.API_PATH+'/students/'+stud.id, stud);
-
-  }
-
   public updateStudent(student: Student, courseId: number) {
     student.courseId = courseId.toString();
     return this.http.put<Student>(this.API_PATH+'/students/'+student.id, student);
