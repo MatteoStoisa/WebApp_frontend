@@ -26,6 +26,7 @@ export class StudentsComponent implements OnInit {
       console.log("updating _students")
       this.students = studentsCont;
       this.dataSource = new MatTableDataSource<Student>(studentsCont);
+      this.dataSource.paginator = this.paginator;
     }
     @Output() deleteStudentsEmitter = new EventEmitter<Student[]>();
     @Output() addStudentEmitter = new EventEmitter<Student>();
