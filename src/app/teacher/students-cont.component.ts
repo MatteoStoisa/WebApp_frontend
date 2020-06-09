@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription, concat } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Student } from '../models/student.model'
 import { StudentService  } from '../services/student.service'
-import { Subscription, concat } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service'
 
 @Component({
   selector: 'app-students-cont',
@@ -12,7 +13,8 @@ import { tap } from 'rxjs/operators';
 })
 export class StudentsContComponent implements OnInit {
 
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService,
+              private authService: AuthService) { }
   
   students: Student[] = [];
   studentsDB: Student[] = [];
