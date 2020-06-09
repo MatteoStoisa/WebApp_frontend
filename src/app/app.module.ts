@@ -19,10 +19,12 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog'
 
 import { StudentsComponent } from './teacher/students.component';
 import { StudentsContComponent } from './teacher/students-cont.component'
 import { AppRoutingModule } from './app-routing.module';
+import { LoginDialogComponent } from './auth/login-dialog/login-dialog.component'
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     StudentsComponent,
     StudentsContComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +54,12 @@ import { AppRoutingModule } from './app-routing.module';
     MatSortModule,
     MatPaginatorModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoginDialogComponent]
 })
 export class AppModule { }
 

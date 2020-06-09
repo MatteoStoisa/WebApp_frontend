@@ -1,0 +1,66 @@
+{
+  "students": [
+    {
+      "id": "123456",
+      "name": "Ajeje",
+      "firstName": "Brazof",
+      "courseId": "1",
+      "groupId": 0
+    },
+    {
+      "id": "234567",
+      "name": "Verdi",
+      "firstName": "Giuseppe",
+      "courseId": "1",
+      "groupId": 0
+    },
+    {
+      "id": "345678",
+      "name": "Bianchi",
+      "firstName": "Mauro",
+      "courseId": "1",
+      "groupId": 0
+    },
+    {
+      "id": "456789",
+      "name": "Storti",
+      "firstName": "Simone",
+      "courseId": "1",
+      "groupId": 0
+    },
+    {
+      "id": "567890",
+      "name": "Baglio",
+      "firstName": "Mirco",
+      "courseId": "1",
+      "groupId": 0
+    },
+    {
+      "id": "678901",
+      "name": "Poretti",
+      "firstName": "Annah",
+      "courseId": "1",
+      "groupId": 0
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "Applicazioni Internet",
+      "path": "applicazioniinternet"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "Calvary"
+    }
+  ],
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$9SFIVF0tDrwRoUlZOo9Q0urEs0cnpBXu9RWGf/TxuHjFzDteQhvDW",
+      "id": 1
+    }
+  ]
+}

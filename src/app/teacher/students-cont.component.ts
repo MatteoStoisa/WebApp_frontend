@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Student } from '../models/student.model'
-import { StudentsComponent } from './students.component';
 import { StudentService  } from '../services/student.service'
 import { Subscription, concat } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-students-cont',
@@ -36,7 +35,7 @@ export class StudentsContComponent implements OnInit {
 
   performDeleteStudents(toDelete: Student[]) {
       for(let toDel of toDelete) {
-        //TODO: may not work with multiple requests!
+        //TODO: may not work with multiple requests because of the FOR!
         if(this.updateSub)
           this.updateSub.unsubscribe();
         this.updateSub = concat(this.studentService.updateStudent(toDel,0), this.updateStudentList()).subscribe(
