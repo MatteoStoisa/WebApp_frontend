@@ -4,9 +4,8 @@
         <mat-form-field class="example-full-width" style="padding-right: 2%;">
             <input type="text" placeholder="search and select" aria-label="Number" matInput [formControl]="myControl"
                 [matAutocomplete]="auto" id="inputAddStudent">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option"
-                    (click)="optionSelected(option)">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="optionSelected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                     {{option.name+" "+option.firstName+" ("+option.id+")"}}
                 </mat-option>
             </mat-autocomplete>

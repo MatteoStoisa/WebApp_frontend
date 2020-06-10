@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 
 import { Student } from '../models/student.model'
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
     selector: 'app-students',
@@ -98,8 +99,8 @@ export class StudentsComponent implements OnInit {
         return filteredStudentDB;
     }
 
-    optionSelected(student: Student) {
-        this.selectedStudent = student;
+    optionSelected(student: MatAutocompleteSelectedEvent) {
+        this.selectedStudent = student.option.value;
     }
 
     addOption() {
