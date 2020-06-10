@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'HomeComponent',
-  template: `
+    selector: 'HomeComponent',
+    template: `
     <div>
         Home
     </div>
     `,
-  styles: []
+    styles: []
 })
 export class HomeComponent implements OnInit {
 

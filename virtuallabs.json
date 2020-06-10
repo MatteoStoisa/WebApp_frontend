@@ -25,14 +25,14 @@
       "id": "456789",
       "name": "Storti",
       "firstName": "Simone",
-      "courseId": "1",
+      "courseId": "0",
       "groupId": 0
     },
     {
       "id": "567890",
       "name": "Baglio",
       "firstName": "Mirco",
-      "courseId": "1",
+      "courseId": "0",
       "groupId": 0
     },
     {
