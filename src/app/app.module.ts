@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,7 @@ import { StudentsComponent } from './teacher/students.component';
 import { StudentsContComponent } from './teacher/students-cont.component'
 import { AppRoutingModule } from './app-routing.module';
 import { LoginDialogComponent } from './auth/login-dialog/login-dialog.component'
-
+import {JwtInterceptor} from './auth/jwt-interceptor'
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import { LoginDialogComponent } from './auth/login-dialog/login-dialog.component
     HttpClientModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent]
 })

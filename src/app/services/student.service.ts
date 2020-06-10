@@ -15,23 +15,23 @@ export class StudentService {
   constructor(private http: HttpClient,
               private authService: AuthService) {}
 
-  buildHeader() {
+  /*buildHeader() {
     console.log("requested token");
     console.log(this.authService.getToken());
     return {headers: new HttpHeaders()
                 .set('Authorization',  `Bearer ${this.authService.getToken()}`)
             }
-  }
+  }*/
 
   public getStudents(courseId: number): Observable<Student[]> {
     if(courseId != 0)
       return this.http.get<Student[]>(this.API_PATH + '/course/' + courseId.toString() + '/students');
-    return this.http.get<Student[]>(this.API_PATH + '/students', this.buildHeader());
+    return this.http.get<Student[]>(this.API_PATH + '/students'/*, this.buildHeader()*/);
   }
 
   public updateStudent(student: Student, courseId: number): Observable<Student> {
     student.courseId = courseId.toString();
-    return this.http.put<Student>(this.API_PATH+'/students/'+student.id, student, this.buildHeader());
+    return this.http.put<Student>(this.API_PATH+'/students/'+student.id, student/*, this.buildHeader()*/);
   }
 
 }
