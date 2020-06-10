@@ -29,7 +29,7 @@ export class StudentService {
     return this.http.get<Student[]>(this.API_PATH + '/students', this.buildHeader());
   }
 
-  public updateStudent(student: Student, courseId: number) {
+  public updateStudent(student: Student, courseId: number): Observable<Student> {
     student.courseId = courseId.toString();
     return this.http.put<Student>(this.API_PATH+'/students/'+student.id, student, this.buildHeader());
   }

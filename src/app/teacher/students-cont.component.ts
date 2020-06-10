@@ -19,20 +19,21 @@ export class StudentsContComponent implements OnInit {
   students: Student[] = [];
   studentsDB: Student[] = [];
   studentsSub: Subscription;
+  studentsDBSub: Subscription;
   updateSub: Subscription;
 
   ngOnInit(): void { 
     this.studentsSub = this.updateStudentList().subscribe();
-    this.studentService.getStudents(0).subscribe(
-      (response) => {
-        this.studentsDB = response;
-      }
-    )
+    this.studentsDBSub = this.updateStudentDBList().subscribe();
   }
 
   ngOnDestroy() { 
     if(this.studentsSub)
       this.studentsSub.unsubscribe();
+    if(this.studentsDBSub)
+      this.studentsDBSub.unsubscribe(); 
+    if(this.updateSub)
+      this.updateSub.unsubscribe();
   }
 
   performDeleteStudents(toDelete: Student[]) {
@@ -68,10 +69,21 @@ export class StudentsContComponent implements OnInit {
           for (let stud of student) {
             this.students.push(stud);
           }
-          console.log('updated value', this.students);
         }
       )
     )
   }
-  
+
+  private updateStudentDBList() {
+    return this.studentService.getStudents(0).pipe(
+      tap(
+        (student: Student[]) => {
+          this.studentsDB = [];
+          for (let stud of student) {
+            this.studentsDB.push(stud);
+          }
+        }
+      )
+    )
+  }
 }

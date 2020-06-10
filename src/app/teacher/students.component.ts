@@ -8,6 +8,8 @@ import { FormControl } from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 
 import { Student } from '../models/student.model'
+import {StudentsContComponent} from './students-cont.component'
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-students',
@@ -42,18 +44,16 @@ export class StudentsComponent implements OnInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
-  constructor() {
-    //this.sortedData = this.students.slice();
-   }
+  constructor() {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
 
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
 
   masterToggle() {
@@ -110,7 +110,7 @@ export class StudentsComponent implements OnInit {
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => this._filter(value)),
       );
     if(this.selectedStudent != null) {
       this.addStudentEmitter.emit(this.selectedStudent);

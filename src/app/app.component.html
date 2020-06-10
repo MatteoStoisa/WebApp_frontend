@@ -6,7 +6,14 @@
         <button mat-raised-button routerLink="/home">VirtualLabs</button>
     </span>
     <span class="space-filler"></span>
-    <span><button mat-raised-button (click)="openLoginDialog()">Login</button></span>
+    <div *ngIf="isAuthenticated; else elseBlock">
+        <span>{{user}}</span>
+        <span><button mat-raised-button (click)="logout()"  style="margin-left: 4%;">Logout</button></span>
+    </div>
+    <ng-template #elseBlock>
+        <span><button mat-raised-button (click)="openLoginDialog()">Login</button></span>
+    </ng-template>
+    
 </mat-toolbar>
 <mat-toolbar>Applicazioni Internet</mat-toolbar>
 <mat-sidenav-container>

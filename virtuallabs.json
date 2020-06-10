@@ -11,14 +11,14 @@
       "id": "234567",
       "name": "Verdi",
       "firstName": "Giuseppe",
-      "courseId": "1",
+      "courseId": "0",
       "groupId": 0
     },
     {
       "id": "345678",
       "name": "Bianchi",
       "firstName": "Mauro",
-      "courseId": "1",
+      "courseId": "0",
       "groupId": 0
     },
     {
@@ -32,14 +32,14 @@
       "id": "567890",
       "name": "Baglio",
       "firstName": "Mirco",
-      "courseId": "0",
+      "courseId": "1",
       "groupId": 0
     },
     {
       "id": "678901",
       "name": "Poretti",
       "firstName": "Annah",
-      "courseId": "0",
+      "courseId": "1",
       "groupId": 0
     }
   ],
