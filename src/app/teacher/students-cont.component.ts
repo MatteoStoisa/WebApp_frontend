@@ -4,7 +4,6 @@ import { tap } from 'rxjs/operators';
 
 import { Student } from '../models/student.model'
 import { StudentService } from '../services/student.service'
-import { AuthService } from '../auth/auth.service'
 
 @Component({
     selector: 'app-students-cont',
@@ -13,8 +12,7 @@ import { AuthService } from '../auth/auth.service'
 })
 export class StudentsContComponent implements OnInit {
 
-    constructor(private studentService: StudentService,
-        private authService: AuthService) { }
+    constructor(private studentService: StudentService) { }
 
     students: Student[] = [];
     studentsDB: Student[] = [];
@@ -36,14 +34,21 @@ export class StudentsContComponent implements OnInit {
             this.updateSub.unsubscribe();
     }
 
-    performDeleteStudents(toDelete: Student[]) {
-        for (let toDel of toDelete) {
+    performDeleteStudents(toDelete: Student[]): void {
+        if (toDelete.length == 0) {
             if (this.updateSub)
                 this.updateSub.unsubscribe();
-            this.updateSub = concat(
-                this.studentService.updateStudent(toDel, 0), 
-                this.updateStudentList()
-            ).subscribe();
+            this.updateSub = this.updateStudentList().subscribe();
+            return;
+        }
+        else {
+            let toDel = toDelete.pop();
+            if (this.updateSub)
+                this.updateSub.unsubscribe();
+            this.updateSub = this.studentService.updateStudent(toDel, 0)
+                .subscribe((val) => {
+                    this.performDeleteStudents(toDelete)
+                });
         }
     }
 
@@ -57,7 +62,7 @@ export class StudentsContComponent implements OnInit {
         if (this.updateSub)
             this.updateSub.unsubscribe();
         this.updateSub = concat(
-            this.studentService.updateStudent(toAdd, 1), 
+            this.studentService.updateStudent(toAdd, 1),
             this.updateStudentList()
         ).subscribe();
     }

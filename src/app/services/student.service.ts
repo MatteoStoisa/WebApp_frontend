@@ -13,9 +13,10 @@ export class StudentService {
     constructor(private http: HttpClient) { }
 
     public getStudents(courseId: number): Observable<Student[]> {
-        if (courseId != 0)
-            return this.http.get<Student[]>(this.API_PATH + '/course/' + courseId.toString() + '/students');
-        return this.http.get<Student[]>(this.API_PATH + '/students');
+        if (courseId == 0) {
+            return this.http.get<Student[]>(this.API_PATH + '/students');
+        }
+        return this.http.get<Student[]>(this.API_PATH + '/course/' + courseId.toString() + '/students');
     }
 
     public updateStudent(student: Student, courseId: number): Observable<Student> {

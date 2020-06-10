@@ -4,21 +4,21 @@
       "id": "123456",
       "name": "Ajeje",
       "firstName": "Brazof",
-      "courseId": "0",
+      "courseId": "1",
       "groupId": 0
     },
     {
       "id": "234567",
       "name": "Verdi",
       "firstName": "Giuseppe",
-      "courseId": "0",
+      "courseId": "1",
       "groupId": 0
     },
     {
       "id": "345678",
       "name": "Bianchi",
       "firstName": "Mauro",
-      "courseId": "0",
+      "courseId": "1",
       "groupId": 0
     },
     {
@@ -39,7 +39,7 @@
       "id": "678901",
       "name": "Poretti",
       "firstName": "Annah",
-      "courseId": "1",
+      "courseId": "0",
       "groupId": 0
     }
   ],
