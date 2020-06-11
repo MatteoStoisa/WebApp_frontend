@@ -15,9 +15,11 @@ export class LoginDialogComponent implements OnInit {
     loginForm: FormGroup;
     authSub: Subscription;
     isAuthenticated: boolean;
+    failMessage: string;
 
     constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
-        private authService: AuthService) { }
+        private authService: AuthService) {
+    }
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
@@ -31,14 +33,9 @@ export class LoginDialogComponent implements OnInit {
             this.authSub.unsubscribe();
     }
 
-    closeLoginDialog() {
-        this.dialogRef.close("closed");
-    }
-
-    get f() { return this.loginForm.controls; }
-
     onSubmit() {
         if (this.loginForm.invalid) {
+            this.failMessage = "invalid email or password";
             return;
         }
         if (this.authSub)
@@ -48,6 +45,7 @@ export class LoginDialogComponent implements OnInit {
                 this.dialogRef.close("success!");
             }
         });
+        setTimeout(() => { this.failMessage = "wrong email or password"; }, 500);
     }
 
 }

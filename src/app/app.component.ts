@@ -19,7 +19,6 @@ export class AppComponent {
         private authService: AuthService,
         private router: Router,
     ) {
-        //console.log(location.path())
         router.events
             .pipe(
                 debounceTime(500)
@@ -27,8 +26,7 @@ export class AppComponent {
             .subscribe((val) => {
                 if (this.router.url == '/login')
                     this.openLoginDialog();
-            }
-            )
+            })
     }
 
     ngOnInit(): void {
@@ -63,23 +61,23 @@ export class AppComponent {
     openLoginDialog(): void {
         if (this.openedLoginDialog)
             return;
-        if(this.router.url != '/login')
+        if (this.router.url != '/login')
             this.router.navigate(['/login']);
         this.openedLoginDialog = true;
         let dialogRef = this.matDialog.open(LoginDialogComponent, {
-            height: '50%',
-            width: '40%',
+            height: '35%',
+            width: '25%',
         });
 
         dialogRef.afterClosed().subscribe(value => {
             if (value === "success!") {
                 this.isAuthenticated = true;
                 this.user = this.authService.getUser();
-                if(localStorage.getItem('nextHop') != null) {
+                if (localStorage.getItem('nextHop') != null) {
                     let nextHop = localStorage.getItem('nextHop');
                     localStorage.removeItem('nextHop');
                     this.router.navigate([nextHop]);
-                }  
+                }
             }
             this.openedLoginDialog = false;
         });

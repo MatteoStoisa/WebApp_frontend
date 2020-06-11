@@ -3,5 +3,10 @@
 }
 
 .mat-raised-button {
-    display:inline-block;
+    margin-left: 3%;
+}
+
+.fail {
+    color: red;
+    margin-bottom: 2%;
 }
