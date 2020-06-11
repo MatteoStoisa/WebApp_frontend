@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'PageNotFoundComponent',
   template: `
     <div>
-        PageNotFound
+        <h1>* PageNotFound *</h1>
     </div>
     `,
   styles: []

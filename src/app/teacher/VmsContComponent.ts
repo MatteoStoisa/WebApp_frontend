@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'VmsContComponent',
   template: `
     <div>
-        VmsCont
+        <h1>* Virtual Machine *</h1>
     </div>
     `,
   styles: []

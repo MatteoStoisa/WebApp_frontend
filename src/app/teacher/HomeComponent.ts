@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'HomeComponent',
     template: `
     <div>
-        Home
+        <h1>* Home *</h1>
     </div>
     `,
     styles: []

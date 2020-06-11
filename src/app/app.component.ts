@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
+
 import { LoginDialogComponent } from './auth/login-dialog/login-dialog.component';
 import { AuthService } from '../app/auth/auth.service'
-import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -11,10 +14,22 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent {
 
-    title = 'ai20-lab04';
-    isAuthenticated: boolean;
-    isAuth: Subscription;
-    user: string;
+    constructor(
+        private matDialog: MatDialog,
+        private authService: AuthService,
+        private router: Router,
+    ) {
+        //console.log(location.path())
+        router.events
+            .pipe(
+                debounceTime(500)
+            )
+            .subscribe((val) => {
+                if (this.router.url == '/login')
+                    this.openLoginDialog();
+            }
+            )
+    }
 
     ngOnInit(): void {
         this.isAuth = this.authService.isAuthenticated().subscribe((value) => {
@@ -23,6 +38,8 @@ export class AppComponent {
                 this.user = this.authService.getUser();
             }
         });
+
+        this.openedLoginDialog = false;
     }
 
     ngOnDestroy(): void {
@@ -30,8 +47,12 @@ export class AppComponent {
             this.isAuth.unsubscribe();
     }
 
-    constructor(private matDialog: MatDialog,
-        private authService: AuthService) { }
+    title = 'ai20-lab04';
+    isAuthenticated: boolean;
+    isAuth: Subscription;
+    user: string;
+    routerSub: Subscription;
+    openedLoginDialog: boolean;
 
     navLinks = [
         { label: 'Students', path: 'teacher/course/applicazioni-internet/students' },
@@ -40,6 +61,11 @@ export class AppComponent {
     activeLink = this.navLinks[0];
 
     openLoginDialog(): void {
+        if (this.openedLoginDialog)
+            return;
+        if(this.router.url != '/login')
+            this.router.navigate(['/login']);
+        this.openedLoginDialog = true;
         let dialogRef = this.matDialog.open(LoginDialogComponent, {
             height: '50%',
             width: '40%',
@@ -49,17 +75,20 @@ export class AppComponent {
             if (value === "success!") {
                 this.isAuthenticated = true;
                 this.user = this.authService.getUser();
+                if(localStorage.getItem('nextHop') != null) {
+                    let nextHop = localStorage.getItem('nextHop');
+                    localStorage.removeItem('nextHop');
+                    this.router.navigate([nextHop]);
+                }  
             }
+            this.openedLoginDialog = false;
         });
     }
 
     logout(): void {
-        this.authService.logout();
-        this.notifyLoginLogout();
-    }
-
-    notifyLoginLogout(): void {
+        localStorage.removeItem('token');
         this.isAuthenticated = !this.isAuthenticated;
+        this.router.navigate(['/home']);
     }
 
 }

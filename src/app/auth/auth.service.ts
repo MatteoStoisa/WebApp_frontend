@@ -27,16 +27,12 @@ export class AuthService {
         );
     }
 
-    public logout() {
-        localStorage.removeItem('token');
-    }
-
-    getToken() {
-        return localStorage.getItem('token');
-    }
-
     public isAuthenticated() {
         return of(!(localStorage.getItem('token') === null));
+    }
+
+    public isAuthenticatedBool() {
+        return !(localStorage.getItem('token') === null);
     }
 
     public getUser() {

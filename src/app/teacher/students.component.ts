@@ -6,9 +6,9 @@ import { map, startWith } from 'rxjs/operators';
 import { Sort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { Student } from '../models/student.model'
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
     selector: 'app-students',
@@ -20,6 +20,11 @@ export class StudentsComponent implements OnInit {
     studentsDB: Student[];
     @Input() set _studentsDB(studentsDBcont: Student[]) {
         this.studentsDB = studentsDBcont;
+        this.filteredOptions = this.myControl.valueChanges
+            .pipe(
+                startWith(''),
+                map(value => this._filter(value))
+            );
     }
     students: Student[];
     @Input() set _students(studentsCont: Student[]) {
@@ -43,15 +48,7 @@ export class StudentsComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
-        this.dataSource.paginator = this.paginator;
-
-        this.filteredOptions = this.myControl.valueChanges
-            .pipe(
-                startWith(''),
-                map(value => this._filter(value))
-            );
-    }
+    ngOnInit(): void { }
 
     masterToggle() {
         this.isAllSelected() ?
