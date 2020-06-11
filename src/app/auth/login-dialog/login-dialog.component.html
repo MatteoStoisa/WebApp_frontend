@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Login</h2>
+<h2 mat-dialog-title id="title">Login</h2>
 <mat-dialog-content>
     <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
@@ -16,8 +16,8 @@
         </div>
         <div class="fail">{{failMessage}}</div>
         <div>
-            <button mat-raised-button type="submit">Login</button>
-            <button mat-raised-button mat-dialog-close>Cancel</button>
+            <button mat-raised-button type="submit" color="primary" class="but">Login</button>
+            <button mat-stroked-button mat-dialog-close class="but">Cancel</button>
         </div>
     </form>
 </mat-dialog-content>

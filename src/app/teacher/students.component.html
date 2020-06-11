@@ -1,7 +1,7 @@
 <div class="container">
-    <form class="example-form" style="margin-left: 2%;">
-        <label style="margin-right: 3%;">Insert Student Into Course:</label>
-        <mat-form-field class="example-full-width" style="padding-right: 2%;">
+    <form id="insert-form">
+        <label id="insert-text">Insert Student Into Course:</label>
+        <mat-form-field id="input-field">
             <input type="text" placeholder="search and select" aria-label="Number" matInput [formControl]="myControl"
                 [matAutocomplete]="auto" id="inputAddStudent">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="optionSelected($event)">
@@ -16,13 +16,13 @@
         </button>
     </form>
     <ng-container matColumnDef="delete">
-        <label style="margin-right: 2%; margin-left: 2%;">Remove Selected Students From Course:</label>
+        <label id="remove-text">Remove Selected Students From Course:</label>
         <button mat-mini-fab color="primary" aria-label="Delete button" (click)="deleteSelected()">
             <mat-icon aria-hidden="false" aria-label="Delete icon">delete</mat-icon>
         </button>
     </ng-container>
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" style="margin-top: 3%;">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" id="main-table">
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
                     <mat-checkbox (change)="$event ? masterToggle() : null"

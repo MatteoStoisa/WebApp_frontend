@@ -5,3 +5,24 @@ table {
 mat-form-field {
     width: 40%;
 }
+
+#insert-form {
+    margin-left: 2%;
+}
+
+#insert-text {
+    margin-right: 3%;
+}
+
+#input-field {
+    padding-right: 2%;
+}
+
+#remove-text {
+    margin-right: 2%; 
+    margin-left: 2%;
+}
+
+#main-table {
+    margin-top: 3%;
+}

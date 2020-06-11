@@ -11,4 +11,21 @@ mat-sidenav {
     flex: 1 1 auto;
 }
 
+#home-button {
+    margin-left: 2%;
+    font-size: large;
+    margin-right: 2%;
+}
 
+.loginlogout {
+    margin-left: 5%;
+    font-size: large;
+}
+
+.course {
+    font-size: large;
+}
+
+.main-tab {
+    font-size: large;
+}
