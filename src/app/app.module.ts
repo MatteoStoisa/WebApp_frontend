@@ -48,7 +48,7 @@ import { JwtInterceptor } from './auth/jwt-interceptor'
     MatFormFieldModule,
     MatAutocompleteModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     MatInputModule,
     MatButtonModule,
     MatSortModule,

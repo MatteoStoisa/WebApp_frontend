@@ -65,7 +65,7 @@ export class AppComponent {
             this.router.navigate(['/login']);
         this.openedLoginDialog = true;
         let dialogRef = this.matDialog.open(LoginDialogComponent, {
-            height: '35%',
+            height: '40%',
             width: '25%',
         });
 

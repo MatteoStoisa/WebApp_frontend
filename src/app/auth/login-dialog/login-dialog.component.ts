@@ -12,9 +12,10 @@ import { AuthService } from '../auth.service'
 })
 export class LoginDialogComponent implements OnInit {
 
-    loginForm: FormGroup;
     authSub: Subscription;
     isAuthenticated: boolean;
+    email;
+    password;
     failMessage: string;
 
     constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
@@ -22,10 +23,6 @@ export class LoginDialogComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loginForm = new FormGroup({
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-        });
     }
 
     ngOnDestroy(): void {
@@ -33,14 +30,16 @@ export class LoginDialogComponent implements OnInit {
             this.authSub.unsubscribe();
     }
 
+    emailControl = new FormControl('', [Validators.required, Validators.email]);
+    passwordControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+
     onSubmit() {
-        if (this.loginForm.invalid) {
-            this.failMessage = "invalid email or password";
+        if (this.emailControl.invalid || this.passwordControl.invalid) {
             return;
         }
         if (this.authSub)
             this.authSub.unsubscribe();
-        this.authSub = this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(val => {
+        this.authSub = this.authService.login(this.email, this.password).subscribe(val => {
             if (val.hasOwnProperty("accessToken")) {
                 this.dialogRef.close("success!");
             }
